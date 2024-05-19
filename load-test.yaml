@@ -1,0 +1,26 @@
+config:
+  target: 'http://localhost:6666'
+  phases:
+    - duration: 60
+      arrivalRate: 200
+      rampTo: 3000
+  processor: "./processor.js"
+
+scenarios:
+  - name: "Increase balance test"
+    flow:
+      - function: "generatePayload"
+      - post:
+          url: "/gateway/balance/increase"
+          json:
+            id: "{{ id }}"
+            amount: "{{ amount }}"
+
+  - name: "Decrease balance test"
+    flow:
+      - function: "generatePayload"
+      - post:
+          url: "/gateway/balance/decrease"
+          json:
+            id: "{{ id }}"
+            amount: "{{ amount }}"
